@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASE STUDY: Urban Entrophy — Joseph K.</title>
+    <link rel="icon" type="image/png" href="../../../assets/favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-color: #20201F;
+            --text-color: #ACABA9;
+            --text-muted: rgba(172, 171, 169, 0.85);
+            --border-color: #666562;
+            --accent-color: #E7D932;
+            --font-display: "Courier New", Courier, monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .wrapper { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 2.5rem 0; border-bottom: 1px solid var(--border-color); }
+        .back-btn { font-family: var(--font-display); font-size: 0.9rem; text-decoration: none; color: var(--text-muted); transition: color 0.25s ease; }
+        .back-btn:hover { color: var(--accent-color); }
+        .project-header { padding: 6rem 0 4rem 0; border-bottom: 1px solid var(--border-color); }
+        .project-title h1 { font-size: 2.5rem; font-weight: 500; letter-spacing: -1px; margin-bottom: 1.5rem; line-height: 1.2; }
+        .project-meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
+        .meta-item { display: flex; flex-direction: column; gap: 0.5rem; }
+        .meta-label { font-family: var(--font-display); color: var(--accent-color); font-size: 0.8rem; text-transform: uppercase; }
+        .meta-value { font-size: 0.95rem; }
+        .editorial-content { padding: 5rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; border-bottom: 1px solid var(--border-color); margin-bottom: 5rem; }
+        .editorial-narrative p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; }
+        .editorial-narrative p:last-child { margin-bottom: 0; }
+        .editorial-narrative blockquote { font-family: var(--font-display); font-size: 1.05rem; color: var(--text-color); border-left: 2px solid var(--accent-color); padding-left: 1.5rem; margin: 2rem 0; font-style: normal; }
+        .editorial-themes { display: flex; flex-direction: column; gap: 2.5rem; }
+        .theme-section h3 { font-family: var(--font-display); font-size: 0.95rem; text-transform: uppercase; color: var(--text-color); margin-bottom: 0.75rem; letter-spacing: 1px; border-bottom: 1px dashed var(--border-color); padding-bottom: 0.5rem; }
+        .theme-section p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+        .theme-section p + p { margin-top: 0.75rem; }
+        .collection-section { padding-bottom: 5rem; border-bottom: 1px solid var(--border-color); margin-bottom: 5rem; }
+        .collection-section > h2 { font-family: var(--font-display); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 2.5rem; }
+        .collection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem 3rem; }
+        .collection-item h4 { font-size: 1rem; margin-bottom: 0.4rem; }
+        .collection-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.55; }
+        .project-gallery { display: flex; flex-direction: column; gap: 3.5rem; padding-bottom: 8rem; }
+        .gallery-item { width: 100%; border: 1px solid var(--border-color); background-color: #171716; overflow: hidden; }
+        .gallery-item img { width: 100%; height: auto; display: block; }
+        .gallery-caption { font-family: var(--font-display); font-size: 0.8rem; color: var(--text-muted); padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); }
+        .project-footer { padding: 6rem 0; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .next-project-link { font-family: var(--font-display); font-size: 1.25rem; color: var(--accent-color); text-decoration: none; border-bottom: 1px solid var(--accent-color); padding-bottom: 0.25rem; transition: opacity 0.25s; }
+        .next-project-link:hover { opacity: 0.7; }
+        @media (max-width: 900px) {
+            .editorial-content { grid-template-columns: 1fr; gap: 4rem; }
+            .project-meta-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .project-title h1 { font-size: 2rem; }
+            .collection-grid { grid-template-columns: 1fr; }
+        }
+        .legal-footer { display: flex; gap: 1.5rem; padding-bottom: 3rem; }
+        .legal-footer a { font-family: var(--font-display); font-size: 0.8rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+        .legal-footer a:hover { color: var(--accent-color); }
+</style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <a href="../../../index.html" class="back-btn">← Back to Works</a>
+            <span style="font-family: var(--font-display); font-size: 0.9rem; color: var(--text-muted);">Joseph K. — 2026</span>
+        </header>
+
+        <div class="project-header">
+            <div class="project-title">
+                <h1>CASE STUDY: Urban Entrophy</h1>
+            </div>
+            <div class="project-meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Category</span>
+                    <span class="meta-value">Self-Initiated Case Study</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Concept</span>
+                    <span class="meta-value">Logistics as Philosophy</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Year</span>
+                    <span class="meta-value">2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Style</span>
+                    <span class="meta-value">Brutalist-Experimental</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="editorial-content">
+            <div class="editorial-narrative">
+                <blockquote>Information is the resolution of uncertainty. Entropy is the measure of that uncertainty.</blockquote>
+                <p>Initiated from a growing obsession with functional ephemera - the visual language of logistics that surrounds us daily yet goes entirely unseen. The challenge: strip shipping labels, transit forms, and fax headers of their utility and reconstruct them as philosophical objects.</p>
+                <p>Urban Entrophy is a visual investigation into the breakdown of information in a hyper-connected yet crumbling world. The project asks: what remains of our identity when it is distilled into tracking numbers, barcodes, and error messages?</p>
+                <p>Seven finished posters, each resolved as an independent visual argument while belonging to a coherent system. The "Destructive Digital" workflow developed here - collection, deconstruction, degradation, intervention - has since become a recurring method in the studio's experimental work.</p>
+            </div>
+            <div class="editorial-themes">
+                <div class="theme-section">
+                    <h3>Visual Language</h3>
+                    <p>High-contrast monochromes representing the binary nature of digital data.</p>
+                    <p>Tactile textures: distressed halftones and photocopy "noise" mimicking physical decay.</p>
+                    <p>A recurring neon-pink "redacted" marker acting as both disruptor and focal point.</p>
+                </div>
+                <div class="theme-section">
+                    <h3>The Seven Pillars</h3>
+                    <p>01 Memento Vivere · 02 Dasein · 03 Chaos/Construct · 04 Sovereign · 05 Entrophy · 06 Nocturnal · 07 Unheimlich - each poster bridges the mechanical and the human condition.</p>
+                </div>
+                <div class="theme-section">
+                    <h3>Process</h3>
+                    <p>Collection of technical ephemera, deconstruction of functional hierarchy, digital degradation, and analog-style intervention marks.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="project-gallery">
+            <div class="gallery-item">
+                <img src="./urban-entrophy-1.webp" alt="urban-entrophy-1.webp">
+            </div>
+            <div class="gallery-item">
+                <img src="./urban-entrophy-2.webp" alt="urban-entrophy-2.webp">
+            </div>
+            <div class="gallery-item">
+                <img src="./urban-entrophy-3.webp" alt="urban-entrophy-3.webp">
+            </div>
+            <div class="gallery-item">
+                <img src="./urban-entrophy-4.webp" alt="urban-entrophy-4.webp">
+            </div>
+            <div class="gallery-item">
+                <img src="./urban-entrophy-5.webp" alt="urban-entrophy-5.webp">
+            </div>
+            <div class="gallery-item">
+                <img src="./urban-entrophy-6.webp" alt="urban-entrophy-6.webp">
+            </div>
+            <div class="gallery-item">
+                <img src="./urban-entrophy-7.webp" alt="urban-entrophy-7.webp">
+            </div>
+        </div>
+
+        <div class="project-footer">
+            <a href="../../../index.html" class="back-btn">← Back to Works</a>
+            <a href="../1-type-tbilisi/type-tbilisi.html" class="next-project-link">Next Project →</a>
+        </div>
+        <div class="legal-footer">
+            <a href="../../../privacy-policy.html#privacy">Privacy Policy</a>
+            <a href="../../../privacy-policy.html#cookies">Cookies</a>
+        </div>
+    </div>
+</body>
+</html>
