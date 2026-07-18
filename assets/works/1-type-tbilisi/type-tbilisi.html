@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Existentialism — Joseph K.</title>
+    
+    <!-- Favicon (pointing two levels up to find assets/favicon.png) -->
+    <link rel="icon" type="image/png" href="../../../assets/favicon.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #20201F;
+            --text-color: #ACABA9;
+            --text-muted: rgba(172, 171, 169, 0.85);
+            --border-color: #666562;
+            --accent-color: #E7D932;
+            --font-display: "Courier New", Courier, monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .back-btn {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.25s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-color);
+        }
+
+        /* Project Layout */
+        .project-header {
+            padding: 6rem 0 4rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-title h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .meta-label {
+            font-family: var(--font-display);
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-size: 0.95rem;
+        }
+
+        /* Structured Editorial Description */
+        .editorial-content {
+            padding: 5rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 5rem;
+        }
+
+        .editorial-narrative p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .editorial-narrative p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Editorial column for Themes & Concept split */
+        .editorial-themes {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .theme-section h3 {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .theme-section p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Editorial Image Gallery Stack */
+        .project-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+            padding-bottom: 8rem;
+        }
+
+        .gallery-item {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            background-color: #171716;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Footer Navigation (Next Project Link) */
+        .project-footer {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .next-project-link {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-color);
+            padding-bottom: 0.25rem;
+            transition: opacity 0.25s;
+        }
+
+        .next-project-link:hover {
+            opacity: 0.7;
+        }
+
+        .legal-footer {
+            display: flex;
+            gap: 1.5rem;
+            padding-bottom: 3rem;
+        }
+
+        .legal-footer a {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .legal-footer a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .editorial-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .project-meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .project-title h1 {
+                font-size: 2rem;
+            }
+        }
+    
+    /* Cookie consent popup */
+    .cookie-banner {
+        position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 50; max-width: 360px;
+        background: #171716; border: 1px solid var(--border-color); padding: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        transform: translateY(calc(100% + 2rem)); opacity: 0; pointer-events: none;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+    .cookie-banner.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .cookie-banner p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .cookie-banner a { color: var(--accent-color); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
+    .cookie-banner a:hover { border-color: var(--accent-color); }
+    .cookie-banner-actions { display: flex; gap: 0.75rem; }
+    .cookie-btn {
+        font-family: var(--font-display); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+        padding: 0.65rem 1.1rem; cursor: pointer; border: 1px solid var(--control-border);
+        background: transparent; color: var(--text-color); transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .cookie-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+    .cookie-btn-accept { background: var(--accent-color); border-color: var(--accent-color); color: var(--bg-color); }
+    .cookie-btn-accept:hover { opacity: 0.85; color: var(--bg-color); }
+    @media (max-width: 560px) {
+        .cookie-banner { left: 1rem; right: 1rem; max-width: none; bottom: 1rem; }
+    }
+</style>
+</head>
+<body>
+
+    <div class="wrapper">
+        
+        <!-- HEADER -->
+        <header>
+            <!-- Goes up two levels to find your main landing index.html -->
+            <a href="../../../index.html" class="back-btn">← Back to Works</a>
+            <span style="font-family: var(--font-display); font-size: 0.9rem; color: var(--text-muted);">Joseph K. — 2026</span>
+        </header>
+
+        <!-- PROJECT TITLE & INFO -->
+        <div class="project-header">
+            <div class="project-title">
+                <h1>Urban Existentialism — Typographic Series</h1>
+            </div>
+
+            <div class="project-meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Category</span>
+                    <span class="meta-value">Typographic Archive</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Concept Sourcing</span>
+                    <span class="meta-value">Street Sentiments Archive</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Year</span>
+                    <span class="meta-value">2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Location</span>
+                    <span class="meta-value">Tbilisi, Georgia</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TWO-COLUMN NARRATIVE & SCHEMATIC CONTENT -->
+        <div class="editorial-content">
+            
+            <!-- Left Column: Narrative Essay & Visual Identity -->
+            <div class="editorial-narrative">
+                <p>Urban Existentialism is a poster series born from the raw, ephemeral visual landscape of Tbilisi's streets. Sourced from the documentation of the Street Sentiments (ქუჩის სენტიმენტები) archive, this project translates the city’s gritty, spray-painted truths into a striking, high-contrast typographic exploration.</p>
+                <p>Tbilisi’s walls act as a communal diary - capturing the friction between local subcultures, political disillusionment, rave culture, and deeply personal, isolated thoughts. By isolating these transient murals and recontextualising them through a brutalist design framework, the series archives the fleeting voice of a generation navigating modern identity, alienation, and resistance.</p>
+                
+                <div class="theme-section" style="margin-top: 3rem;">
+                    <h3>Visual Identity</h3>
+                    <p>To mirror the physical reality of the streets, the visual language relies on a stark, monochromatic palette and uncompromising layouts. Heavy stencilling, distorted letterforms, and chaotic ink splatters evoke the velocity and urgency of late-night graffiti.</p>
+                    <p style="margin-top: 1rem; font-size: 0.95rem;">By balancing razor-sharp, structured typography with degraded, sprayed textures, the design establishes an archival aesthetic - one that feels both permanent and intensely fleeting.</p>
+                </div>
+            </div>
+
+            <!-- Right Column: Thematic Concept Breakdowns -->
+            <div class="editorial-themes">
+                <div class="theme-section">
+                    <h3>Subcultural Anthems</h3>
+                    <p>Rebel-infused club culture manifestos like "Hate Cops, Love Techno" and the provocative, community-driven "Please Cum Together."</p>
+                </div>
+                <div class="theme-section">
+                    <h3>Geographic &amp; Social Friction</h3>
+                    <p>Playful yet sharp observations on urban alienation, such as "ვაკე მაბნევს" (Vake confuses me).</p>
+                </div>
+                <div class="theme-section">
+                    <h3>Poetic Melancholy &amp; Hope</h3>
+                    <p>Intimate reflections on connection and time, including "Sometimes, home is a person," "რამ გაგაბედნიერა დღეს?" (What made you happy today?), and the defiant "მოვა დრო და ეს სიძულვილი სამარცხვინო გახდება" (A time will come when this hatred becomes shameful).</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- STACKED PORTFOLIO IMAGES (Self-referencing inside your local folder) -->
+        <div class="project-gallery">
+            <div class="gallery-item"><img src="./type-tbilisi-1.webp" alt="Urban Existentialism Specimen 1"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-2.webp" alt="Urban Existentialism Specimen 2"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-3.webp" alt="Urban Existentialism Specimen 3"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-4.webp" alt="Urban Existentialism Specimen 4"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-5.webp" alt="Urban Existentialism Specimen 5"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-6.webp" alt="Urban Existentialism Specimen 6"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-7.webp" alt="Urban Existentialism Specimen 7"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-8.webp" alt="Urban Existentialism Specimen 8"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-9.webp" alt="Urban Existentialism Specimen 9"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-10.webp" alt="Urban Existentialism Specimen 10"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-11.webp" alt="Urban Existentialism Specimen 11"></div>
+            <div class="gallery-item"><img src="./type-tbilisi-12.webp" alt="Urban Existentialism Specimen 12"></div>
+        </div>
+
+        <!-- PROJECT FOOTER -->
+        <div class="project-footer">
+            <a href="../../../index.html" class="back-btn">← Back to Works</a>
+            <!-- Links to the next project page in your projects folder -->
+            <a href="../2-periodic-table/periodic-table.html" class="next-project-link">Next Project →</a>
+        </div>
+
+        <div class="legal-footer">
+            <a href="../../../privacy-policy.html#privacy">Privacy Policy</a>
+            <a href="../../../privacy-policy.html#cookies">Cookies</a>
+        </div>
+
+    </div>
+
+
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie notice">
+    <p>This site doesn't use tracking or advertising cookies — only what's needed to send a message through the forms. <a href="../../../privacy-policy.html#cookies">Learn more</a></p>
+    <div class="cookie-banner-actions">
+        <button type="button" class="cookie-btn cookie-btn-decline" id="cookie-decline">Decline</button>
+        <button type="button" class="cookie-btn cookie-btn-accept" id="cookie-accept">Accept</button>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var KEY = 'cookie-consent';
+        var banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+
+        if (!localStorage.getItem(KEY)) {
+            setTimeout(function () { banner.classList.add('visible'); }, 800);
+        }
+
+        function setConsent(value) {
+            localStorage.setItem(KEY, value);
+            banner.classList.remove('visible');
+        }
+
+        document.getElementById('cookie-accept').addEventListener('click', function () { setConsent('accepted'); });
+        document.getElementById('cookie-decline').addEventListener('click', function () { setConsent('declined'); });
+    })();
+</script>
+
+</body>
+</html>
