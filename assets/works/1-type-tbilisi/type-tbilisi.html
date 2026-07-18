@@ -246,6 +246,14 @@
     @media (max-width: 560px) {
         .cookie-banner { left: 1rem; right: 1rem; max-width: none; bottom: 1rem; }
     }
+
+    .header-right { display: flex; align-items: center; gap: 1.5rem; }
+    .share-btn {
+        font-family: var(--font-display); font-size: 0.9rem; text-transform: none;
+        background: transparent; border: none; color: var(--text-muted); cursor: pointer;
+        padding: 0; transition: color 0.25s ease;
+    }
+    .share-btn:hover { color: var(--accent-color); }
 </style>
 </head>
 <body>
@@ -256,7 +264,10 @@
         <header>
             <!-- Goes up two levels to find your main landing index.html -->
             <a href="../../../index.html" class="back-btn">← Back to Works</a>
-            <span style="font-family: var(--font-display); font-size: 0.9rem; color: var(--text-muted);">Joseph K. — 2026</span>
+            <div class="header-right">
+                <button type="button" class="share-btn" id="share-btn">Share</button>
+                <span style="font-family: var(--font-display); font-size: 0.9rem; color: var(--text-muted);">Joseph K. — 2026</span>
+            </div>
         </header>
 
         <!-- PROJECT TITLE & INFO -->
@@ -377,5 +388,28 @@
     })();
 </script>
 
+
+<script>
+    (function () {
+        var btn = document.getElementById('share-btn');
+        if (!btn) return;
+        var originalText = btn.textContent;
+
+        btn.addEventListener('click', async function () {
+            var shareData = { title: document.title, url: window.location.href };
+            if (navigator.share) {
+                try { await navigator.share(shareData); } catch (err) {}
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                btn.textContent = 'Link copied';
+                setTimeout(function () { btn.textContent = originalText; }, 2000);
+            } catch (err) {
+                window.prompt('Copy this link:', window.location.href);
+            }
+        });
+    })();
+</script>
 </body>
 </html>
