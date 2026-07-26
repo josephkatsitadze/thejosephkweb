@@ -102,6 +102,16 @@
     .about-text p:last-child { margin-bottom: 0; }
     .about-text strong { color: var(--text-color); font-weight: 500; }
 
+    /* Scroll-triggered reveal */
+    .reveal-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-up.visible { opacity: 1; transform: translateY(0); }
+    .about-text p.reveal-up:nth-of-type(1) { transition-delay: 0s; }
+    .about-text p.reveal-up:nth-of-type(2) { transition-delay: 0.12s; }
+    .about-text p.reveal-up:nth-of-type(3) { transition-delay: 0.24s; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal-up { opacity: 1; transform: none; transition: none; }
+    }
+
     /* Contact */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
     .contact-lead { font-size: clamp(1.8rem, 3.5vw, 2.75rem); font-weight: 500; letter-spacing: -1px; line-height: 1.25; }
@@ -237,6 +247,11 @@
         </div>
         <div class="work-grid">
 
+            <a class="work-card" href="assets/works/0-unframe/unframe.html">
+                <div class="work-thumb"><img src="assets/works/0-unframe/unframe-cover.webp" alt="BRAND IDENTITY: un|frame — Studio Positioning"></div>
+                <div class="work-meta"><div class="work-cat">Brand Identity</div><div class="work-title">un|frame — Brand Identity &amp; Studio Positioning</div></div>
+            </a>
+
             <a class="work-card" href="assets/works/1-type-tbilisi/type-tbilisi.html">
                 <div class="work-thumb"><img src="assets/works/1-type-tbilisi/type-tbilisi-cover.webp" alt="TYPE: A Typographic Archive of Tbilisi Streets"></div>
                 <div class="work-meta"><div class="work-cat">Type</div><div class="work-title">A Typographic Archive of Tbilisi Streets</div></div>
@@ -309,9 +324,9 @@
             <div>
                 <div class="about-role">Senior Designer</div>
                 <div class="about-text">
-                    <p><strong>7 years</strong> designing brand identities, campaigns, and visual systems for lifestyle, cultural, and tech clients.</p>
-                    <p>I take on freelance work for brands and agencies that want considered design - not just good-looking output.</p>
-                    <p>Based in Tbilisi. Working globally.</p>
+                    <p class="reveal-up"><strong>7 years</strong> designing brand identities, campaigns, and visual systems for lifestyle, cultural, and tech clients.</p>
+                    <p class="reveal-up">I take on freelance work for brands and agencies that want considered design - not just good-looking output.</p>
+                    <p class="reveal-up">Based in Tbilisi. Working globally.</p>
                 </div>
             </div>
         </div>
@@ -326,7 +341,7 @@
         </div>
         <div class="contact-grid">
             <div>
-                <div class="contact-lead">Building something and need a designer who thinks before they draw? I'd like to hear about it.</div>
+                <div class="contact-lead reveal-up">Building something and need a designer who thinks before they draw? I'd like to hear about it.</div>
             </div>
 
             <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
@@ -490,6 +505,28 @@
 
         document.getElementById('cookie-accept').addEventListener('click', function () { setConsent('accepted'); });
         document.getElementById('cookie-decline').addEventListener('click', function () { setConsent('declined'); });
+    })();
+
+    // Scroll-triggered reveal
+    (function () {
+        var targets = document.querySelectorAll('.reveal-up');
+        if (!targets.length) return;
+
+        if (!('IntersectionObserver' in window)) {
+            targets.forEach(function (el) { el.classList.add('visible'); });
+            return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+        targets.forEach(function (el) { observer.observe(el); });
     })();
 </script>
 
