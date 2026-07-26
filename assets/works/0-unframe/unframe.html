@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>un|frame - brand identity & studio positioning — Joseph K.</title>
+    <link rel="icon" type="image/png" href="../../../assets/favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-color: #20201F;
+            --text-color: #ACABA9;
+            --text-muted: rgba(172, 171, 169, 0.85);
+            --border-color: #666562;
+            --accent-color: #E7D932;
+            --control-border: rgba(172, 171, 169, 0.6);
+            --font-display: "Courier New", Courier, monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .wrapper { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 2.5rem 0; border-bottom: 1px solid var(--border-color); }
+        .back-btn { font-family: var(--font-display); font-size: 0.9rem; text-decoration: none; color: var(--text-muted); transition: color 0.25s ease; }
+        .back-btn:hover { color: var(--accent-color); }
+        .project-header { padding: 6rem 0 4rem 0; border-bottom: 1px solid var(--border-color); }
+        .project-title h1 { font-size: 2.5rem; font-weight: 500; letter-spacing: -1px; margin-bottom: 1.5rem; line-height: 1.2; }
+        .project-meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
+        .meta-item { display: flex; flex-direction: column; gap: 0.5rem; }
+        .meta-label { font-family: var(--font-display); color: var(--accent-color); font-size: 0.8rem; text-transform: uppercase; }
+        .meta-value { font-size: 0.95rem; }
+        .project-gallery { display: flex; flex-direction: column; gap: 3.5rem; padding: 5rem 0 8rem; }
+        .gallery-item { width: 100%; border: 1px solid var(--border-color); background-color: #171716; overflow: hidden; }
+        .gallery-item img { width: 100%; height: auto; display: block; }
+        .gallery-caption { font-family: var(--font-display); font-size: 0.8rem; color: var(--text-muted); padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); }
+
+        /* Case-study narrative blocks */
+        .case-text { display: flex; flex-direction: column; gap: 1.25rem; max-width: 760px; }
+        .case-text p { font-size: 1.25rem; color: var(--text-muted); line-height: 1.75; }
+        .case-aside {
+            font-size: 1.05rem; color: var(--text-color); line-height: 1.6; max-width: 640px;
+            border-left: 2px solid var(--accent-color); padding-left: 1.5rem;
+        }
+        .case-label {
+            font-family: var(--font-display); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--accent-color); border-bottom: 1px dashed var(--border-color); padding-bottom: 0.75rem;
+        }
+        .credits-block { font-size: 0.95rem; color: var(--text-muted); line-height: 1.9; }
+        .credits-block a { color: var(--accent-color); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
+        .credits-block a:hover { border-color: var(--accent-color); }
+
+        .project-footer { padding: 6rem 0; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .next-project-link { font-family: var(--font-display); font-size: 1.25rem; color: var(--accent-color); text-decoration: none; border-bottom: 1px solid var(--accent-color); padding-bottom: 0.25rem; transition: opacity 0.25s; }
+        .next-project-link:hover { opacity: 0.7; }
+        @media (max-width: 900px) {
+            .project-meta-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .project-title h1 { font-size: 2rem; }
+            .case-text p, .case-aside { font-size: 1.05rem; }
+        }
+        .legal-footer { display: flex; gap: 1.5rem; padding-bottom: 3rem; }
+        .legal-footer a { font-family: var(--font-display); font-size: 0.8rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+        .legal-footer a:hover { color: var(--accent-color); }
+
+    /* Cookie consent popup */
+    .cookie-banner {
+        position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 50; max-width: 360px;
+        background: #171716; border: 1px solid var(--border-color); padding: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        transform: translateY(calc(100% + 2rem)); opacity: 0; pointer-events: none;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+    .cookie-banner.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .cookie-banner p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .cookie-banner a { color: var(--accent-color); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
+    .cookie-banner a:hover { border-color: var(--accent-color); }
+    .cookie-banner-actions { display: flex; gap: 0.75rem; }
+    .cookie-btn {
+        font-family: var(--font-display); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+        padding: 0.65rem 1.1rem; cursor: pointer; border: 1px solid var(--control-border);
+        background: transparent; color: var(--text-color); transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .cookie-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+    .cookie-btn-accept { background: var(--accent-color); border-color: var(--accent-color); color: var(--bg-color); }
+    .cookie-btn-accept:hover { opacity: 0.85; color: var(--bg-color); }
+    @media (max-width: 560px) {
+        .cookie-banner { left: 1rem; right: 1rem; max-width: none; bottom: 1rem; }
+    }
+
+    .header-right { display: flex; align-items: center; gap: 1.5rem; }
+    .share-btn {
+        font-family: var(--font-display); font-size: 0.9rem; text-transform: none;
+        background: transparent; border: none; color: var(--text-muted); cursor: pointer;
+        padding: 0; transition: color 0.25s ease;
+    }
+    .share-btn:hover { color: var(--accent-color); }
+</style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <a href="../../../index.html" class="back-btn">← Back to Works</a>
+            <div class="header-right">
+                <button type="button" class="share-btn" id="share-btn">Share</button>
+                <span style="font-family: var(--font-display); font-size: 0.9rem; color: var(--text-muted);">Joseph K. — 2026</span>
+            </div>
+        </header>
+
+        <div class="project-header">
+            <div class="project-title">
+                <h1>un|frame - brand identity &amp; studio positioning</h1>
+            </div>
+            <div class="project-meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Category</span>
+                    <span class="meta-value">Brand Identity</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Client</span>
+                    <span class="meta-value">unframe — Event Strategy Studio</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Year</span>
+                    <span class="meta-value">2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Location</span>
+                    <span class="meta-value">Tbilisi, Georgia</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-gallery">
+
+            <div class="gallery-item">
+                <img src="./unframe-1.webp" alt="Printed 'unframe (v.)' definition spread, introducing the identity's core premise">
+            </div>
+
+            <div class="case-text">
+                <p>Every event agency in this market runs the same playbook: mood boards, themes, decor. unframe was built on a different premise — that an event without a strategic argument is just decoration.</p>
+                <p>The identity had to carry that argument before a single space was designed.</p>
+            </div>
+
+            <div class="gallery-item">
+                <img src="./unframe-2.webp" alt="un|frame identity system — mark and wordmark construction">
+            </div>
+            <div class="gallery-item">
+                <img src="./unframe-3.webp" alt="un|frame identity system — typography and layout exploration">
+            </div>
+            <div class="gallery-item">
+                <img src="./unframe-4.webp" alt="un|frame identity system — application detail">
+            </div>
+            <div class="gallery-item">
+                <img src="./unframe-5.webp" alt="un|frame identity system — application detail">
+            </div>
+
+            <div class="case-text">
+                <p>The system had to hold up outside a style guide — inside a client-facing pitch deck, on Instagram, on a printed booklet.</p>
+                <p>Three phases structure every engagement: Understand, Argue, Build.</p>
+                <p>The client approves the argument before a single element is designed.</p>
+            </div>
+
+            <div class="case-aside">the argument doesn't stop at the print booklet — it holds even on a wall of raw concrete.</div>
+
+            <div class="gallery-item">
+                <img src="./unframe-6.webp" alt="The un|frame wordmark and rationed red spray-painted onto a raw concrete wall, reading 'the event is the argument'">
+            </div>
+
+            <div class="case-aside">the same rule, three colors, one rationed red, held across a feed instead of a page.</div>
+
+            <div class="gallery-item">
+                <img src="./unframe-7.webp" alt="un|frame identity applied across an Instagram feed grid">
+            </div>
+
+            <div class="case-label">Case studies</div>
+
+            <div class="gallery-item">
+                <img src="./unframe-8.webp" alt="un|frame case study applying the Understand, Argue, Build framework">
+            </div>
+            <div class="gallery-item">
+                <img src="./unframe-9.webp" alt="un|frame case study applying the Understand, Argue, Build framework">
+            </div>
+            <div class="gallery-item">
+                <img src="./unframe-10.webp" alt="un|frame case study applying the Understand, Argue, Build framework">
+            </div>
+            <div class="gallery-item">
+                <img src="./unframe-11.webp" alt="un|frame case study applying the Understand, Argue, Build framework">
+            </div>
+
+            <div class="credits-block">
+                <div class="case-label" style="margin-bottom: 1.25rem;">Credits</div>
+                Joseph Katsitadze (art direction)<br>
+                Inga Pirtskhalaishvili (strategy, CEO)<br>
+                Lasha Kipshidze &amp; Likuna Tsibadze (production, project leads)<br>
+                <a href="https://unframe.ge/" target="_blank" rel="noopener">unframe.ge</a><br>
+                Tbilisi, 2026
+            </div>
+
+        </div>
+
+        <div class="project-footer">
+            <a href="../../../index.html" class="back-btn">← Back to Works</a>
+            <a href="../1-type-tbilisi/type-tbilisi.html" class="next-project-link">Next Project →</a>
+        </div>
+        <div class="legal-footer">
+            <a href="../../../privacy-policy.html#privacy">Privacy Policy</a>
+            <a href="../../../privacy-policy.html#cookies">Cookies</a>
+        </div>
+    </div>
+
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie notice">
+    <p>This site doesn't use tracking or advertising cookies — only what's needed to send a message through the forms. <a href="../../../privacy-policy.html#cookies">Learn more</a></p>
+    <div class="cookie-banner-actions">
+        <button type="button" class="cookie-btn cookie-btn-decline" id="cookie-decline">Decline</button>
+        <button type="button" class="cookie-btn cookie-btn-accept" id="cookie-accept">Accept</button>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var KEY = 'cookie-consent';
+        var banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+
+        if (!localStorage.getItem(KEY)) {
+            setTimeout(function () { banner.classList.add('visible'); }, 800);
+        }
+
+        function setConsent(value) {
+            localStorage.setItem(KEY, value);
+            banner.classList.remove('visible');
+        }
+
+        document.getElementById('cookie-accept').addEventListener('click', function () { setConsent('accepted'); });
+        document.getElementById('cookie-decline').addEventListener('click', function () { setConsent('declined'); });
+    })();
+</script>
+
+<script>
+    (function () {
+        var btn = document.getElementById('share-btn');
+        if (!btn) return;
+        var originalText = btn.textContent;
+
+        btn.addEventListener('click', async function () {
+            var shareData = { title: document.title, url: window.location.href };
+            if (navigator.share) {
+                try { await navigator.share(shareData); } catch (err) {}
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                btn.textContent = 'Link copied';
+                setTimeout(function () { btn.textContent = originalText; }, 2000);
+            } catch (err) {
+                window.prompt('Copy this link:', window.location.href);
+            }
+        });
+    })();
+</script>
+</body>
+</html>
