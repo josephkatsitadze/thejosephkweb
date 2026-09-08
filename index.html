@@ -20,6 +20,10 @@
 <meta name="twitter:title" content="Joseph K. — Portfolio">
 <meta name="twitter:description" content="Minimalist brand identities, conceptual art direction, and rigorous typography systems. Ideas, articulated.">
 <meta name="twitter:image" content="https://thejosephk.com/assets/Social-share.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -31,6 +35,7 @@
         --control-border: rgba(172, 171, 169, 0.6);
         --font-display: "Courier New", Courier, monospace;
         --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        --font-headline: 'Fraunces', Georgia, 'Times New Roman', serif;
     }
     html { scroll-behavior: smooth; }
     body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
@@ -71,7 +76,7 @@
     .hero { min-height: 82vh; display: flex; flex-direction: column; justify-content: center; padding: 4rem 2rem; border-bottom: 1px solid var(--border-color); }
     .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
     .hero-eyebrow { font-family: var(--font-display); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.5rem; }
-    .hero h1 { font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 500; letter-spacing: -2px; line-height: 1.05; margin-bottom: 2rem; }
+    .hero h1 { font-family: var(--font-headline); font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; margin-bottom: 2rem; }
     .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 640px; line-height: 1.6; margin-bottom: 2.5rem; }
     .hero-cta { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 0.95rem; color: var(--accent-color); text-decoration: none; border-bottom: 1px solid var(--accent-color); padding-bottom: 0.35rem; width: fit-content; transition: opacity 0.25s; }
     .hero-cta:hover { opacity: 0.7; }
@@ -83,7 +88,7 @@
     .section-heading span { font-family: var(--font-display); font-size: 0.85rem; color: var(--text-muted); }
 
     /* Work grid */
-    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-flow: row dense; gap: 2.5rem; }
     .work-card { text-decoration: none; color: var(--text-color); display: block; border: 1px solid var(--border-color); background: #171716; transition: border-color 0.25s ease; }
     .work-card:hover { border-color: var(--accent-color); }
     .work-thumb { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #1c1c1a; display: flex; align-items: center; justify-content: center; }
@@ -92,6 +97,17 @@
     .work-meta { padding: 1.25rem 1.4rem 1.5rem; }
     .work-cat { font-family: var(--font-display); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-color); margin-bottom: 0.5rem; }
     .work-title { font-size: 1.05rem; font-weight: 500; line-height: 1.35; }
+    .work-card.featured { grid-column: span 2; }
+    .work-card.featured .work-cat { font-size: 0.8rem; }
+    .work-card.featured .work-title { font-size: 1.4rem; }
+
+    /* Jewellery */
+    .jewellery-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .jewellery-title { font-family: var(--font-headline); font-size: clamp(1.6rem, 2.5vw, 2.25rem); font-weight: 600; letter-spacing: -0.01em; margin: 0.75rem 0 1.5rem; }
+    .jewellery-text p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.7; max-width: 480px; margin-bottom: 2rem; }
+    .jewellery-thumb { display: block; aspect-ratio: 1/1; overflow: hidden; border: 1px solid var(--border-color); background: #171716; }
+    .jewellery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .jewellery-thumb:hover img { transform: scale(1.04); }
 
     /* About */
     .about-grid { display: grid; grid-template-columns: 340px 1fr; gap: 5rem; align-items: start; }
@@ -101,6 +117,8 @@
     .about-text p { font-size: 1.2rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; max-width: 640px; }
     .about-text p:last-child { margin-bottom: 0; }
     .about-text strong { color: var(--text-color); font-weight: 500; }
+    .about-text a { color: var(--text-color); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--border-color); transition: color 0.25s ease, text-decoration-color 0.25s ease; }
+    .about-text a:hover { color: var(--accent-color); text-decoration-color: var(--accent-color); }
 
     /* Scroll-triggered reveal */
     .reveal-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -114,7 +132,7 @@
 
     /* Contact */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .contact-lead { font-size: clamp(1.8rem, 3.5vw, 2.75rem); font-weight: 500; letter-spacing: -1px; line-height: 1.25; }
+    .contact-lead { font-family: var(--font-headline); font-size: clamp(1.8rem, 3.5vw, 2.75rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
 
     /* Contact form */
     .contact-form { display: flex; flex-direction: column; gap: 1.75rem; }
@@ -153,12 +171,14 @@
         nav { display: none; }
         .menu-toggle { display: flex; }
         .work-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .jewellery-feature { grid-template-columns: 1fr; gap: 2.5rem; }
         .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .about-portrait { max-width: 280px; }
         .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
     @media (max-width: 560px) {
         .work-grid { grid-template-columns: 1fr; }
+        .work-card.featured { grid-column: span 1; }
     }
 
     /* Back to top */
@@ -170,17 +190,17 @@
         z-index: 15;
         width: 3rem;
         height: 3rem;
-        border: none;
+        border: 1px solid var(--control-border);
         outline: none;
-        background-color: var(--accent-color);
-        color: var(--bg-color);
+        background-color: #171716;
+        color: var(--text-color);
         cursor: pointer;
         font-family: var(--font-display);
         font-size: 1.1rem;
         border-radius: 0;
-        transition: opacity 0.25s ease;
+        transition: border-color 0.25s ease, color 0.25s ease;
     }
-    #backToTopBtn:hover { opacity: 0.8; }
+    #backToTopBtn:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
     /* Cookie consent popup */
     .cookie-banner {
@@ -201,8 +221,8 @@
         background: transparent; color: var(--text-color); transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
     }
     .cookie-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
-    .cookie-btn-accept { background: var(--accent-color); border-color: var(--accent-color); color: var(--bg-color); }
-    .cookie-btn-accept:hover { opacity: 0.85; color: var(--bg-color); }
+    .cookie-btn-accept { border-color: var(--accent-color); color: var(--accent-color); }
+    .cookie-btn-accept:hover { background: var(--accent-color); color: var(--bg-color); }
     @media (max-width: 560px) {
         .cookie-banner { left: 1rem; right: 1rem; max-width: none; bottom: 1rem; }
     }
@@ -234,7 +254,7 @@
 
 <section class="hero" id="top">
     <div class="hero-inner">
-        <div class="hero-eyebrow">Graphic Designer — Tbilisi, Georgia</div>
+        <div class="hero-eyebrow">Art Director — Tbilisi, Georgia</div>
         <h1>Hi, I'm<br>Joseph K.</h1>
         <p>Minimalist brand identities, conceptual art direction, and rigorous typography systems. Ideas, articulated.</p>
         <a href="#work" class="hero-cta">↓ Scroll down to see my work</a>
@@ -249,7 +269,7 @@
         </div>
         <div class="work-grid">
 
-            <a class="work-card" href="assets/works/0-unframe/unframe.html">
+            <a class="work-card featured" href="assets/works/0-unframe/unframe.html">
                 <div class="work-thumb"><img src="assets/works/0-unframe/unframe-cover.webp" alt="BRAND IDENTITY: un|frame — Studio Positioning"></div>
                 <div class="work-meta"><div class="work-cat">Brand Identity</div><div class="work-title">un|frame — Brand Identity &amp; Studio Positioning</div></div>
             </a>
@@ -279,7 +299,7 @@
                 <div class="work-meta"><div class="work-cat">Posters</div><div class="work-title">Industrial Luxury</div></div>
             </a>
 
-            <a class="work-card" href="assets/works/6-medusa/medusa.html">
+            <a class="work-card featured" href="assets/works/6-medusa/medusa.html">
                 <div class="work-thumb"><img src="assets/works/6-medusa/medusa-cover.webp" alt="POSTERS: Medusa | Reclaiming the Myth"></div>
                 <div class="work-meta"><div class="work-cat">Posters</div><div class="work-title">Medusa | Reclaiming the Myth</div></div>
             </a>
@@ -299,7 +319,7 @@
                 <div class="work-meta"><div class="work-cat">Posters</div><div class="work-title">A Visual Anthology of Art &amp; Literature</div></div>
             </a>
 
-            <a class="work-card" href="assets/works/10-chamber/chamber.html">
+            <a class="work-card featured" href="assets/works/10-chamber/chamber.html">
                 <div class="work-thumb"><img src="assets/works/10-chamber/chamber-cover.webp" alt="CASE STUDY: Echo Chamber"></div>
                 <div class="work-meta"><div class="work-cat">Case Study</div><div class="work-title">Echo Chamber</div></div>
             </a>
@@ -319,13 +339,16 @@
             <h2>Jewellery</h2>
             <span>2018–2025</span>
         </div>
-        <div class="work-grid">
-
-            <a class="work-card" href="assets/works/12-jewellery/jewellery.html">
-                <div class="work-thumb"><img src="assets/works/12-jewellery/jewellery-cover.webp" alt="JEWELLERY: Rings &amp; Brooches"></div>
-                <div class="work-meta"><div class="work-cat">Jewellery</div><div class="work-title">Rings &amp; Brooches</div></div>
+        <div class="jewellery-feature">
+            <div class="jewellery-text">
+                <div class="work-cat">Jewellery</div>
+                <div class="jewellery-title">Rings &amp; Brooches</div>
+                <p>A practice alongside client work — designing and making rings and brooches since 2018, sculpted first, cast in silver.</p>
+                <a href="assets/works/12-jewellery/jewellery.html" class="hero-cta">View the collection →</a>
+            </div>
+            <a class="jewellery-thumb" href="assets/works/12-jewellery/jewellery.html">
+                <img src="assets/works/12-jewellery/jewellery-cover.webp" alt="JEWELLERY: Rings &amp; Brooches">
             </a>
-
         </div>
     </div>
 </section>
@@ -341,10 +364,10 @@
                 <img src="assets/portrait.webp" alt="Joseph K. portrait">
             </div>
             <div>
-                <div class="about-role">Senior Designer</div>
+                <div class="about-role">Art Director</div>
                 <div class="about-text">
-                    <p class="reveal-up"><strong>7 years</strong> designing brand identities, campaigns, and visual systems for lifestyle, cultural, and tech clients.</p>
-                    <p class="reveal-up">I take on freelance work for brands and agencies that want considered design - not just good-looking output.</p>
+                    <p class="reveal-up"><strong>7 years</strong> designing brand identities, campaigns, and visual systems — including as Senior Graphic Designer at McCann Tbilisi.</p>
+                    <p class="reveal-up">Currently Art Director at <a href="assets/works/0-unframe/unframe.html">un|frame</a>, an event planning and strategy studio. I also take on freelance work for brands and agencies that want considered design — not just good-looking output.</p>
                     <p class="reveal-up">Alongside that, I design and make jewellery, an ongoing practice since 2018.</p>
                     <p class="reveal-up">Based in Tbilisi. Working globally.</p>
                 </div>
