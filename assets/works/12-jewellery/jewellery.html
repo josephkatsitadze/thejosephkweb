@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEWELLERY: Rings &amp; Brooches — Joseph K.</title>
+    <link rel="icon" type="image/png" href="../../../assets/favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-color: #20201F;
+            --text-color: #ACABA9;
+            --text-muted: rgba(172, 171, 169, 0.85);
+            --border-color: #666562;
+            --accent-color: #E7D932;
+            --font-display: "Courier New", Courier, monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .wrapper { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 2.5rem 0; border-bottom: 1px solid var(--border-color); }
+        .back-btn { font-family: var(--font-display); font-size: 0.9rem; text-decoration: none; color: var(--text-muted); transition: color 0.25s ease; }
+        .back-btn:hover { color: var(--accent-color); }
+        .project-header { padding: 6rem 0 4rem 0; border-bottom: 1px solid var(--border-color); }
+        .project-title h1 { font-size: 2.5rem; font-weight: 500; letter-spacing: -1px; margin-bottom: 1.5rem; line-height: 1.2; }
+        .project-meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
+        .meta-item { display: flex; flex-direction: column; gap: 0.5rem; }
+        .meta-label { font-family: var(--font-display); color: var(--accent-color); font-size: 0.8rem; text-transform: uppercase; }
+        .meta-value { font-size: 0.95rem; }
+        .editorial-content { padding: 5rem 0; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; border-bottom: 1px solid var(--border-color); margin-bottom: 5rem; }
+        .editorial-narrative p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; }
+        .editorial-narrative p:last-child { margin-bottom: 0; }
+        .editorial-narrative blockquote { font-family: var(--font-display); font-size: 1.05rem; color: var(--text-color); border-left: 2px solid var(--accent-color); padding-left: 1.5rem; margin: 2rem 0; font-style: normal; }
+        .editorial-themes { display: flex; flex-direction: column; gap: 2.5rem; }
+        .theme-section h3 { font-family: var(--font-display); font-size: 0.95rem; text-transform: uppercase; color: var(--text-color); margin-bottom: 0.75rem; letter-spacing: 1px; border-bottom: 1px dashed var(--border-color); padding-bottom: 0.5rem; }
+        .theme-section p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+        .theme-section p + p { margin-top: 0.75rem; }
+        .note-callout {
+            font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; padding: 1.25rem 1.5rem;
+            border: 1px dashed var(--border-color); margin-top: 0.5rem;
+        }
+        .note-callout strong { color: var(--text-color); font-weight: 500; }
+
+        .pieces-section { padding-bottom: 6rem; }
+        .pieces-section > h2 { font-family: var(--font-display); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.75rem; }
+        .pieces-section > .pieces-hint { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+        .pieces-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+        .piece-card {
+            position: relative; cursor: pointer; border: 1px solid var(--border-color); background-color: #171716;
+            overflow: hidden; aspect-ratio: 1 / 1; display: block;
+        }
+        .piece-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+        .piece-card:hover img, .piece-card:focus-visible img { transform: scale(1.06); }
+        .piece-card:focus-visible { outline: 1px solid var(--accent-color); outline-offset: -1px; }
+        .piece-card-label {
+            position: absolute; left: 0; right: 0; bottom: 0; padding: 1rem 1.1rem 0.9rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+        }
+        .piece-card-label .piece-card-index { font-family: var(--font-display); font-size: 0.7rem; color: var(--accent-color); display: block; margin-bottom: 0.25rem; }
+        .piece-card-label h3 { font-size: 1rem; font-weight: 500; color: #fff; letter-spacing: -0.2px; }
+
+        /* Modal */
+        .piece-modal-overlay {
+            position: fixed; inset: 0; background: rgba(10,10,9,0.9); display: flex; align-items: center; justify-content: center;
+            padding: 2rem; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+        }
+        .piece-modal-overlay.visible { opacity: 1; pointer-events: auto; }
+        .piece-modal {
+            background: var(--bg-color); border: 1px solid var(--border-color); max-width: 920px; width: 100%;
+            max-height: 88vh; overflow-y: auto; padding: 2.5rem; position: relative;
+        }
+        .piece-modal-close {
+            position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: 1px solid var(--border-color);
+            color: var(--text-muted); font-family: var(--font-display); font-size: 1rem; width: 2.25rem; height: 2.25rem;
+            cursor: pointer; line-height: 1; transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .piece-modal-close:hover { color: var(--accent-color); border-color: var(--accent-color); }
+        .piece-modal-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1rem; padding-right: 3rem; flex-wrap: wrap; }
+        .piece-modal-heading h3 { font-size: 1.6rem; font-weight: 500; letter-spacing: -0.5px; }
+        .piece-modal-index { font-family: var(--font-display); font-size: 0.85rem; color: var(--accent-color); white-space: nowrap; }
+        .piece-modal-caption { font-size: 1.05rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.75rem; max-width: 680px; }
+        .piece-modal-images { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+        .piece-modal-images img { height: 320px; width: auto; max-width: 100%; object-fit: cover; border: 1px solid var(--border-color); background-color: #171716; display: block; }
+
+        .project-footer { padding: 6rem 0; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .next-project-link { font-family: var(--font-display); font-size: 1.25rem; color: var(--accent-color); text-decoration: none; border-bottom: 1px solid var(--accent-color); padding-bottom: 0.25rem; transition: opacity 0.25s; }
+        .next-project-link:hover { opacity: 0.7; }
+        @media (max-width: 900px) {
+            .editorial-content { grid-template-columns: 1fr; gap: 4rem; }
+            .project-meta-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .project-title h1 { font-size: 2rem; }
+            .pieces-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+            .piece-modal-images img { height: 240px; }
+        }
+        @media (max-width: 560px) {
+            .piece-modal { padding: 1.75rem; }
+            .piece-modal-images img { height: 190px; }
+        }
+        .legal-footer { display: flex; gap: 1.5rem; padding-bottom: 3rem; }
+        .legal-footer a { font-family: var(--font-display); font-size: 0.8rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+        .legal-footer a:hover { color: var(--accent-color); }
+
+    /* Cookie consent popup */
+    .cookie-banner {
+        position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 50; max-width: 360px;
+        background: #171716; border: 1px solid var(--border-color); padding: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        transform: translateY(calc(100% + 2rem)); opacity: 0; pointer-events: none;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+    .cookie-banner.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .cookie-banner p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .cookie-banner a { color: var(--accent-color); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
+    .cookie-banner a:hover { border-color: var(--accent-color); }
+    .cookie-banner-actions { display: flex; gap: 0.75rem; }
+    .cookie-btn {
+        font-family: var(--font-display); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+        padding: 0.65rem 1.1rem; cursor: pointer; border: 1px solid rgba(172, 171, 169, 0.6);
+        background: transparent; color: var(--text-color); transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .cookie-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+    .cookie-btn-accept { background: var(--accent-color); border-color: var(--accent-color); color: var(--bg-color); }
+    .cookie-btn-accept:hover { opacity: 0.85; color: var(--bg-color); }
+    @media (max-width: 560px) {
+        .cookie-banner { left: 1rem; right: 1rem; max-width: none; bottom: 1rem; }
+    }
+
+    .header-right { display: flex; align-items: center; gap: 1.5rem; }
+    .share-btn {
+        font-family: var(--font-display); font-size: 0.9rem; text-transform: none;
+        background: transparent; border: none; color: var(--text-muted); cursor: pointer;
+        padding: 0; transition: color 0.25s ease;
+    }
+    .share-btn:hover { color: var(--accent-color); }
+</style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <a href="../../../index.html" class="back-btn">← Back to Works</a>
+            <div class="header-right">
+                <button type="button" class="share-btn" id="share-btn">Share</button>
+                <span style="font-family: var(--font-display); font-size: 0.9rem; color: var(--text-muted);">Joseph K. — 2026</span>
+            </div>
+        </header>
+
+        <div class="project-header">
+            <div class="project-title">
+                <h1>JEWELLERY: Rings &amp; Brooches</h1>
+            </div>
+            <div class="project-meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Category</span>
+                    <span class="meta-value">Jewellery / Sculptural Objects</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Concept</span>
+                    <span class="meta-value">Wearable Sculpture</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Year</span>
+                    <span class="meta-value">2018–2025</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Pieces</span>
+                    <span class="meta-value">19</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="editorial-content">
+            <div class="editorial-narrative">
+                <blockquote>Nineteen rings and brooches made to be worn.</blockquote>
+                <p>Alongside branding and art direction work at un|frame, this is an ongoing personal practice: rings and brooches carved and cast in silver, worked in the round rather than laid flat on a grid. It's the same instinct for form and proportion that runs through the rest of this portfolio, applied at the scale of a knuckle instead of a page.</p>
+                <p>The set moves between registers without settling into one — classical portraiture and myth sit next to industrial hardware, a heron and a nautilus shell sit next to a raised middle finger. What holds it together is a preference for objects with real physical presence: weight, undercut, a surface that changes as light moves across it.</p>
+            </div>
+            <div class="editorial-themes">
+                <div class="theme-section">
+                    <h3>Material</h3>
+                    <p>Cast and finished in silver, left dark in the recesses and polished on the raised surfaces. A handful of pieces are set with cabochon stones or a single pearl.</p>
+                </div>
+                <div class="theme-section">
+                    <h3>Form</h3>
+                    <p>Figurative and mechanical references — a face, a bird, a shell, a piston, a saddle — reduced to the smallest form that still reads clearly at ring scale.</p>
+                </div>
+                <div class="note-callout">
+                    <strong>Note:</strong> descriptions below are written from the photographs themselves. Materials and any details specific to each piece are worth checking and correcting.
+                </div>
+            </div>
+        </div>
+
+        <div class="pieces-section">
+            <h2>The Pieces</h2>
+            <p class="pieces-hint">Click a piece to see the full set of photos and notes.</p>
+
+            <div class="pieces-grid" id="pieces-grid">
+
+                <button type="button" class="piece-card"
+                    data-name="Athena" data-index="01 / 19"
+                    data-caption="A carved classical profile in the round, helmet and features rendered in full relief — a signet-scale portrait head worn across the knuckle."
+                    data-images='["jewellery-athena-1.webp","jewellery-athena-2.webp","jewellery-athena-3.webp"]'>
+                    <img src="jewellery-athena-1.webp" alt="Athena ring">
+                    <span class="piece-card-label"><span class="piece-card-index">01 / 19</span><h3>Athena</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Gurjaani" data-index="02 / 19"
+                    data-caption="An openwork silver band pierced with a radiating floral motif, with a single freshwater pearl drop suspended from the setting."
+                    data-images='["jewellery-gurjaani-1.webp","jewellery-gurjaani-2.webp"]'>
+                    <img src="jewellery-gurjaani-1.webp" alt="Gurjaani ring">
+                    <span class="piece-card-label"><span class="piece-card-index">02 / 19</span><h3>Gurjaani</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Haunted Forest" data-index="03 / 19"
+                    data-caption="A dense, bramble-textured band that wraps the finger like interlacing branches, set with a brilliant-cut aquamarine at its crown."
+                    data-images='["jewellery-haunted-forest-1.webp","jewellery-haunted-forest-2.webp","jewellery-haunted-forest-3.webp","jewellery-haunted-forest-4.webp"]'>
+                    <img src="jewellery-haunted-forest-1.webp" alt="Haunted Forest ring">
+                    <span class="piece-card-label"><span class="piece-card-index">03 / 19</span><h3>Haunted Forest</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Heart Brooch" data-index="04 / 19"
+                    data-caption="An anatomical heart cast in silver, veins and vessels rendered in full relief rather than stylised into a symbol."
+                    data-images='["jewellery-heart-brooch-1.webp"]'>
+                    <img src="jewellery-heart-brooch-1.webp" alt="Heart brooch">
+                    <span class="piece-card-label"><span class="piece-card-index">04 / 19</span><h3>Heart Brooch</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Heron Brooch" data-index="05 / 19"
+                    data-caption="A heron reduced to a single continuous curve — neck, head and body simplified into one unbroken silver line."
+                    data-images='["jewellery-heron-brooch-1.webp"]'>
+                    <img src="jewellery-heron-brooch-1.webp" alt="Heron brooch">
+                    <span class="piece-card-label"><span class="piece-card-index">05 / 19</span><h3>Heron Brooch</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Hypnos" data-index="06 / 19"
+                    data-caption="A winged, sleeping face worked in high relief across a heavy band — the god of sleep, rendered close enough to the finger to touch skin."
+                    data-images='["jewellery-hypnos-1.webp","jewellery-hypnos-2.webp","jewellery-hypnos-3.webp"]'>
+                    <img src="jewellery-hypnos-1.webp" alt="Hypnos ring">
+                    <span class="piece-card-label"><span class="piece-card-index">06 / 19</span><h3>Hypnos</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Il Dito" data-index="07 / 19"
+                    data-caption="A dark, unpolished brooch cast directly from a raised middle finger — blunt, confrontational, and the least subtle piece in the set."
+                    data-images='["jewellery-il-dito-1.webp"]'>
+                    <img src="jewellery-il-dito-1.webp" alt="Il Dito brooch">
+                    <span class="piece-card-label"><span class="piece-card-index">07 / 19</span><h3>Il Dito</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Khinkali" data-index="08 / 19"
+                    data-caption="A domed ring pierced with an irregular cellular lattice, capped with a small red cabochon at its peak."
+                    data-images='["jewellery-khinkali-1.webp","jewellery-khinkali-2.webp","jewellery-khinkali-3.webp","jewellery-khinkali-4.webp"]'>
+                    <img src="jewellery-khinkali-1.webp" alt="Khinkali ring">
+                    <span class="piece-card-label"><span class="piece-card-index">08 / 19</span><h3>Khinkali</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Lattice Monolith" data-index="09 / 19"
+                    data-caption="An architectural silver ring — a pierced, honeycombed dome set atop a smooth tapering column."
+                    data-images='["jewellery-lattice-monolith-1.webp","jewellery-lattice-monolith-2.webp"]'>
+                    <img src="jewellery-lattice-monolith-1.webp" alt="Lattice Monolith ring">
+                    <span class="piece-card-label"><span class="piece-card-index">09 / 19</span><h3>Lattice Monolith</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Maradya" data-index="10 / 19"
+                    data-caption="A slim silver band with a small bird perched at its crown, cast in full relief at a deliberately tiny scale."
+                    data-images='["jewellery-maradya-1.webp","jewellery-maradya-2.webp"]'>
+                    <img src="jewellery-maradya-1.webp" alt="Maradya ring">
+                    <span class="piece-card-label"><span class="piece-card-index">10 / 19</span><h3>Maradya</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Moonscape" data-index="11 / 19"
+                    data-caption="A ring with a heavily cratered, hand-worked surface — a lunar landscape scaled down to fit a fingertip."
+                    data-images='["jewellery-moonscape-1.webp","jewellery-moonscape-2.webp","jewellery-moonscape-3.webp"]'>
+                    <img src="jewellery-moonscape-1.webp" alt="Moonscape ring">
+                    <span class="piece-card-label"><span class="piece-card-index">11 / 19</span><h3>Moonscape</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Nautilus" data-index="12 / 19"
+                    data-caption="A polished band folded into a continuous spiralling wave, echoing the cross-section of a shell."
+                    data-images='["jewellery-nautilus-1.webp","jewellery-nautilus-2.webp","jewellery-nautilus-3.webp"]'>
+                    <img src="jewellery-nautilus-1.webp" alt="Nautilus ring">
+                    <span class="piece-card-label"><span class="piece-card-index">12 / 19</span><h3>Nautilus</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Orbital Node" data-index="13 / 19"
+                    data-caption="A ring reduced to its simplest gesture — a single raised bud balanced on a slender, polished band."
+                    data-images='["jewellery-orbital-node-1.webp","jewellery-orbital-node-2.webp","jewellery-orbital-node-3.webp"]'>
+                    <img src="jewellery-orbital-node-1.webp" alt="Orbital Node ring">
+                    <span class="piece-card-label"><span class="piece-card-index">13 / 19</span><h3>Orbital Node</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Reflection" data-index="14 / 19"
+                    data-caption="A domed ring set with a rectangular pyrite cabochon and flanked by two small silver spheres, like a face with its features abstracted away."
+                    data-images='["jewellery-reflection-1.webp","jewellery-reflection-2.webp"]'>
+                    <img src="jewellery-reflection-1.webp" alt="Reflection ring">
+                    <span class="piece-card-label"><span class="piece-card-index">14 / 19</span><h3>Reflection</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Secret Garden" data-index="15 / 19"
+                    data-caption="A domed ring with an organic, net-like pierced surface, opening onto a brilliant-cut aquamarine set beneath."
+                    data-images='["jewellery-secret-garden-1.webp","jewellery-secret-garden-2.webp"]'>
+                    <img src="jewellery-secret-garden-1.webp" alt="Secret Garden ring">
+                    <span class="piece-card-label"><span class="piece-card-index">15 / 19</span><h3>Secret Garden</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Solstice" data-index="16 / 19"
+                    data-caption="A polished dome ring set with a dark, marquise-shaped stone laid flush into the silver."
+                    data-images='["jewellery-solstice-1.webp","jewellery-solstice-2.webp","jewellery-solstice-3.webp"]'>
+                    <img src="jewellery-solstice-1.webp" alt="Solstice ring">
+                    <span class="piece-card-label"><span class="piece-card-index">16 / 19</span><h3>Solstice</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="Swallow" data-index="17 / 19"
+                    data-caption="A pair of open rings, each tipped with a sharp, wing-like blade angled off the band like a bird caught mid-turn."
+                    data-images='["jewellery-swallow-1.webp","jewellery-swallow-2.webp"]'>
+                    <img src="jewellery-swallow-1.webp" alt="Swallow ring">
+                    <span class="piece-card-label"><span class="piece-card-index">17 / 19</span><h3>Swallow</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="The Piston" data-index="18 / 19"
+                    data-caption="A squared, mechanical silhouette — a squared cylinder capped with a bolt-like disc, borrowing its language from hardware rather than jewellery."
+                    data-images='["jewellery-the-piston-1.webp","jewellery-the-piston-2.webp","jewellery-the-piston-3.webp"]'>
+                    <img src="jewellery-the-piston-1.webp" alt="The Piston ring">
+                    <span class="piece-card-label"><span class="piece-card-index">18 / 19</span><h3>The Piston</h3></span>
+                </button>
+
+                <button type="button" class="piece-card"
+                    data-name="The Saddle" data-index="19 / 19"
+                    data-caption="A rounded, saddle-shaped ring with a soft polished dome and a single hammered facet catching the light."
+                    data-images='["jewellery-the-saddle-1.webp","jewellery-the-saddle-2.webp"]'>
+                    <img src="jewellery-the-saddle-1.webp" alt="The Saddle ring">
+                    <span class="piece-card-label"><span class="piece-card-index">19 / 19</span><h3>The Saddle</h3></span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="project-footer">
+            <a href="../../../index.html" class="back-btn">← Back to Works</a>
+            <a href="../0-unframe/unframe.html" class="next-project-link">Next Project →</a>
+        </div>
+        <div class="legal-footer">
+            <a href="../../../privacy-policy.html#privacy">Privacy Policy</a>
+            <a href="../../../privacy-policy.html#cookies">Cookies</a>
+        </div>
+    </div>
+
+    <div class="piece-modal-overlay" id="piece-modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="piece-modal">
+            <button type="button" class="piece-modal-close" id="piece-modal-close" aria-label="Close">✕</button>
+            <div class="piece-modal-heading">
+                <h3 id="piece-modal-name"></h3>
+                <span class="piece-modal-index" id="piece-modal-idx"></span>
+            </div>
+            <p class="piece-modal-caption" id="piece-modal-caption"></p>
+            <div class="piece-modal-images" id="piece-modal-images"></div>
+        </div>
+    </div>
+
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie notice">
+    <p>This site doesn't use tracking or advertising cookies — only what's needed to send a message through the forms. <a href="../../../privacy-policy.html#cookies">Learn more</a></p>
+    <div class="cookie-banner-actions">
+        <button type="button" class="cookie-btn cookie-btn-decline" id="cookie-decline">Decline</button>
+        <button type="button" class="cookie-btn cookie-btn-accept" id="cookie-accept">Accept</button>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var KEY = 'cookie-consent';
+        var banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+
+        if (!localStorage.getItem(KEY)) {
+            setTimeout(function () { banner.classList.add('visible'); }, 800);
+        }
+
+        function setConsent(value) {
+            localStorage.setItem(KEY, value);
+            banner.classList.remove('visible');
+        }
+
+        document.getElementById('cookie-accept').addEventListener('click', function () { setConsent('accepted'); });
+        document.getElementById('cookie-decline').addEventListener('click', function () { setConsent('declined'); });
+    })();
+</script>
+
+<script>
+    (function () {
+        var btn = document.getElementById('share-btn');
+        if (!btn) return;
+        var originalText = btn.textContent;
+
+        btn.addEventListener('click', async function () {
+            var shareData = { title: document.title, url: window.location.href };
+            if (navigator.share) {
+                try { await navigator.share(shareData); } catch (err) {}
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                btn.textContent = 'Link copied';
+                setTimeout(function () { btn.textContent = originalText; }, 2000);
+            } catch (err) {
+                window.prompt('Copy this link:', window.location.href);
+            }
+        });
+    })();
+</script>
+
+<script>
+    (function () {
+        var overlay = document.getElementById('piece-modal-overlay');
+        var closeBtn = document.getElementById('piece-modal-close');
+        var nameEl = document.getElementById('piece-modal-name');
+        var idxEl = document.getElementById('piece-modal-idx');
+        var captionEl = document.getElementById('piece-modal-caption');
+        var imagesEl = document.getElementById('piece-modal-images');
+        var cards = document.querySelectorAll('.piece-card');
+        var lastFocused = null;
+
+        function openModal(card) {
+            var name = card.getAttribute('data-name');
+            var idx = card.getAttribute('data-index');
+            var caption = card.getAttribute('data-caption');
+            var images = JSON.parse(card.getAttribute('data-images'));
+
+            nameEl.textContent = name;
+            idxEl.textContent = idx;
+            captionEl.textContent = caption;
+            imagesEl.innerHTML = '';
+            images.forEach(function (src) {
+                var img = document.createElement('img');
+                img.src = src;
+                img.alt = name;
+                imagesEl.appendChild(img);
+            });
+
+            lastFocused = document.activeElement;
+            overlay.classList.add('visible');
+            overlay.setAttribute('aria-hidden', 'false');
+            closeBtn.focus();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            overlay.classList.remove('visible');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            if (lastFocused) lastFocused.focus();
+        }
+
+        cards.forEach(function (card) {
+            card.addEventListener('click', function () { openModal(card); });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeModal();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay.classList.contains('visible')) closeModal();
+        });
+    })();
+</script>
+</body>
+</html>
