@@ -101,6 +101,14 @@
     .work-card.featured .work-cat { font-size: 0.8rem; }
     .work-card.featured .work-title { font-size: 1.4rem; }
 
+    /* Jewellery */
+    .jewellery-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .jewellery-title { font-family: var(--font-headline); font-size: clamp(1.6rem, 2.5vw, 2.25rem); font-weight: 600; letter-spacing: -0.01em; margin: 0.75rem 0 1.5rem; }
+    .jewellery-text p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.7; max-width: 480px; margin-bottom: 2rem; }
+    .jewellery-thumb { display: block; aspect-ratio: 1/1; overflow: hidden; border: 1px solid var(--border-color); background: #171716; }
+    .jewellery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .jewellery-thumb:hover img { transform: scale(1.04); }
+
     /* About */
     .about-grid { display: grid; grid-template-columns: 340px 1fr; gap: 5rem; align-items: start; }
     .about-portrait { width: 100%; aspect-ratio: 4/5; overflow: hidden; border: 1px solid var(--border-color); background: #171716; }
@@ -163,6 +171,7 @@
         nav { display: none; }
         .menu-toggle { display: flex; }
         .work-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .jewellery-feature { grid-template-columns: 1fr; gap: 2.5rem; }
         .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .about-portrait { max-width: 280px; }
         .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -181,17 +190,17 @@
         z-index: 15;
         width: 3rem;
         height: 3rem;
-        border: none;
+        border: 1px solid var(--control-border);
         outline: none;
-        background-color: var(--accent-color);
-        color: var(--bg-color);
+        background-color: #171716;
+        color: var(--text-color);
         cursor: pointer;
         font-family: var(--font-display);
         font-size: 1.1rem;
         border-radius: 0;
-        transition: opacity 0.25s ease;
+        transition: border-color 0.25s ease, color 0.25s ease;
     }
-    #backToTopBtn:hover { opacity: 0.8; }
+    #backToTopBtn:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
     /* Cookie consent popup */
     .cookie-banner {
@@ -212,8 +221,8 @@
         background: transparent; color: var(--text-color); transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
     }
     .cookie-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
-    .cookie-btn-accept { background: var(--accent-color); border-color: var(--accent-color); color: var(--bg-color); }
-    .cookie-btn-accept:hover { opacity: 0.85; color: var(--bg-color); }
+    .cookie-btn-accept { border-color: var(--accent-color); color: var(--accent-color); }
+    .cookie-btn-accept:hover { background: var(--accent-color); color: var(--bg-color); }
     @media (max-width: 560px) {
         .cookie-banner { left: 1rem; right: 1rem; max-width: none; bottom: 1rem; }
     }
@@ -330,13 +339,16 @@
             <h2>Jewellery</h2>
             <span>2018–2025</span>
         </div>
-        <div class="work-grid">
-
-            <a class="work-card" href="assets/works/12-jewellery/jewellery.html">
-                <div class="work-thumb"><img src="assets/works/12-jewellery/jewellery-cover.webp" alt="JEWELLERY: Rings &amp; Brooches"></div>
-                <div class="work-meta"><div class="work-cat">Jewellery</div><div class="work-title">Rings &amp; Brooches</div></div>
+        <div class="jewellery-feature">
+            <div class="jewellery-text">
+                <div class="work-cat">Jewellery</div>
+                <div class="jewellery-title">Rings &amp; Brooches</div>
+                <p>A practice alongside client work — designing and making rings and brooches since 2018, sculpted first, cast in silver.</p>
+                <a href="assets/works/12-jewellery/jewellery.html" class="hero-cta">View the collection →</a>
+            </div>
+            <a class="jewellery-thumb" href="assets/works/12-jewellery/jewellery.html">
+                <img src="assets/works/12-jewellery/jewellery-cover.webp" alt="JEWELLERY: Rings &amp; Brooches">
             </a>
-
         </div>
     </div>
 </section>
