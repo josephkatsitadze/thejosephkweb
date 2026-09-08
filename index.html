@@ -20,6 +20,10 @@
 <meta name="twitter:title" content="Joseph K. — Portfolio">
 <meta name="twitter:description" content="Minimalist brand identities, conceptual art direction, and rigorous typography systems. Ideas, articulated.">
 <meta name="twitter:image" content="https://thejosephk.com/assets/Social-share.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -31,6 +35,7 @@
         --control-border: rgba(172, 171, 169, 0.6);
         --font-display: "Courier New", Courier, monospace;
         --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        --font-headline: 'Fraunces', Georgia, 'Times New Roman', serif;
     }
     html { scroll-behavior: smooth; }
     body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
@@ -71,7 +76,7 @@
     .hero { min-height: 82vh; display: flex; flex-direction: column; justify-content: center; padding: 4rem 2rem; border-bottom: 1px solid var(--border-color); }
     .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
     .hero-eyebrow { font-family: var(--font-display); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1.5rem; }
-    .hero h1 { font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 500; letter-spacing: -2px; line-height: 1.05; margin-bottom: 2rem; }
+    .hero h1 { font-family: var(--font-headline); font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; margin-bottom: 2rem; }
     .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 640px; line-height: 1.6; margin-bottom: 2.5rem; }
     .hero-cta { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 0.95rem; color: var(--accent-color); text-decoration: none; border-bottom: 1px solid var(--accent-color); padding-bottom: 0.35rem; width: fit-content; transition: opacity 0.25s; }
     .hero-cta:hover { opacity: 0.7; }
@@ -83,7 +88,7 @@
     .section-heading span { font-family: var(--font-display); font-size: 0.85rem; color: var(--text-muted); }
 
     /* Work grid */
-    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-flow: row dense; gap: 2.5rem; }
     .work-card { text-decoration: none; color: var(--text-color); display: block; border: 1px solid var(--border-color); background: #171716; transition: border-color 0.25s ease; }
     .work-card:hover { border-color: var(--accent-color); }
     .work-thumb { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #1c1c1a; display: flex; align-items: center; justify-content: center; }
@@ -92,6 +97,9 @@
     .work-meta { padding: 1.25rem 1.4rem 1.5rem; }
     .work-cat { font-family: var(--font-display); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-color); margin-bottom: 0.5rem; }
     .work-title { font-size: 1.05rem; font-weight: 500; line-height: 1.35; }
+    .work-card.featured { grid-column: span 2; }
+    .work-card.featured .work-cat { font-size: 0.8rem; }
+    .work-card.featured .work-title { font-size: 1.4rem; }
 
     /* About */
     .about-grid { display: grid; grid-template-columns: 340px 1fr; gap: 5rem; align-items: start; }
@@ -114,7 +122,7 @@
 
     /* Contact */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .contact-lead { font-size: clamp(1.8rem, 3.5vw, 2.75rem); font-weight: 500; letter-spacing: -1px; line-height: 1.25; }
+    .contact-lead { font-family: var(--font-headline); font-size: clamp(1.8rem, 3.5vw, 2.75rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
 
     /* Contact form */
     .contact-form { display: flex; flex-direction: column; gap: 1.75rem; }
@@ -159,6 +167,7 @@
     }
     @media (max-width: 560px) {
         .work-grid { grid-template-columns: 1fr; }
+        .work-card.featured { grid-column: span 1; }
     }
 
     /* Back to top */
@@ -249,7 +258,7 @@
         </div>
         <div class="work-grid">
 
-            <a class="work-card" href="assets/works/0-unframe/unframe.html">
+            <a class="work-card featured" href="assets/works/0-unframe/unframe.html">
                 <div class="work-thumb"><img src="assets/works/0-unframe/unframe-cover.webp" alt="BRAND IDENTITY: un|frame — Studio Positioning"></div>
                 <div class="work-meta"><div class="work-cat">Brand Identity</div><div class="work-title">un|frame — Brand Identity &amp; Studio Positioning</div></div>
             </a>
@@ -279,7 +288,7 @@
                 <div class="work-meta"><div class="work-cat">Posters</div><div class="work-title">Industrial Luxury</div></div>
             </a>
 
-            <a class="work-card" href="assets/works/6-medusa/medusa.html">
+            <a class="work-card featured" href="assets/works/6-medusa/medusa.html">
                 <div class="work-thumb"><img src="assets/works/6-medusa/medusa-cover.webp" alt="POSTERS: Medusa | Reclaiming the Myth"></div>
                 <div class="work-meta"><div class="work-cat">Posters</div><div class="work-title">Medusa | Reclaiming the Myth</div></div>
             </a>
@@ -299,7 +308,7 @@
                 <div class="work-meta"><div class="work-cat">Posters</div><div class="work-title">A Visual Anthology of Art &amp; Literature</div></div>
             </a>
 
-            <a class="work-card" href="assets/works/10-chamber/chamber.html">
+            <a class="work-card featured" href="assets/works/10-chamber/chamber.html">
                 <div class="work-thumb"><img src="assets/works/10-chamber/chamber-cover.webp" alt="CASE STUDY: Echo Chamber"></div>
                 <div class="work-meta"><div class="work-cat">Case Study</div><div class="work-title">Echo Chamber</div></div>
             </a>
